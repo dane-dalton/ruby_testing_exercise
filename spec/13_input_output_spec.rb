@@ -81,8 +81,12 @@ describe NumberGame do
     # Create a new instance of NumberGame and write a test for when the @guess
     # does not equal @solution.
     context 'when user guess is not correct' do
+
+      subject(:game_continues) { described_class.new(5, '6') }
+
       # remove the 'x' before running this test
-      xit 'is not game over' do
+      it 'is not game over' do
+        expect(game_continues).not_to be_game_over
       end
     end
   end
@@ -110,7 +114,10 @@ describe NumberGame do
 
     # Write a test for the following context.
     context 'when given invalid input as argument' do
-      xit 'returns nil' do
+      it 'returns nil' do
+        user_input = '10'
+        invalid_input = game_check.verify_input(user_input)
+        expect(invalid_input).to be(nil)
       end
     end
   end
@@ -170,9 +177,14 @@ describe NumberGame do
     # Write a test for the following context.
     context 'when user inputs two incorrect values, then a valid input' do
       before do
+        letter = 'e'
+        valid_input = '3'
+        allow(game_loop).to receive(:player_input).and_return(letter, letter, valid_input)
       end
 
-      xit 'completes loop and displays error message twice' do
+      it 'completes loop and displays error message twice' do
+        expect(game_loop).to receive(:puts).with('Input error!').twice
+        game_loop.player_turn
       end
     end
   end
