@@ -215,10 +215,13 @@ describe NumberGame do
     # Create a new instance of NumberGame, with specific values for @solution,
     # @guess, and @count
     context 'when count is 2-3' do
+
+      subject(:game_two) { described_class.new(5, '5', 3) }
+
       # remove the 'x' before running this test
-      xit 'outputs correct phrase' do
+      it 'outputs correct phrase' do
         congrats_phrase = "Congratulations! You picked the random number in 3 guesses!\n"
-        expect { game.final_message }.to output(congrats_phrase).to_stdout
+        expect { game_two.final_message }.to output(congrats_phrase).to_stdout
       end
     end
 
@@ -226,8 +229,13 @@ describe NumberGame do
 
     # Write a test for the following context.
     context 'when count is 4 and over' do
+
+      subject(:game_five) { described_class.new(5, '5', 5) }
+
       # remove the 'x' before running this test
-      xit 'outputs correct phrase' do
+      it 'outputs correct phrase' do
+        correct_phrase = "That was hard. It took you 5 guesses!\n"
+        expect { game_five.final_message }.to output(correct_phrase).to_stdout
       end
     end
   end
